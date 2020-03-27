@@ -9,11 +9,13 @@ using WeatherAppUWP.presentation;
 using System.Diagnostics;
 using WeatherAppUWP.domain;
 using Newtonsoft.Json;
+using Windows.UI.Core;
 
 namespace WeatherAppUWP
 {
     public class WeatherViewModel : BindableBase
     {
+        private CoreDispatcher dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
 
         private Data currentTemperature;
         public Data CurrentTemperature
@@ -34,6 +36,13 @@ namespace WeatherAppUWP
 
         private GetCurrentWeatherUseCase getCurrentWeatherUseCase;
 
+        private bool isLoading = true;
+        public bool IsLoading
+        {
+            get =>  isLoading; 
+            set =>  Set(ref isLoading, value, "IsLoading");
+        }
+
         public string City { get; set; }
 
         public WeatherViewModel(GetCurrentWeatherUseCase getCurrentWeatherUseCase)
@@ -44,15 +53,26 @@ namespace WeatherAppUWP
 
         async Task FetchDataWeatherAsync(string city)
         {
-            data = await getCurrentWeatherUseCase.Get(city);
-            if (data.Count == 1)
-            {
-                CurrentTemperature = data[0];
-            }
-            else
-            {
-                // TODO
-            }
+                try
+                {
+                    data = await getCurrentWeatherUseCase.Get(city);
+                    if (data.Count == 1)
+                    {
+                        await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                        {
+                            CurrentTemperature = data[0];
+                            IsLoading = false;
+                        });
+                    }
+                    else
+                    {
+                        // TODO
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }         
         }
     }
 }
