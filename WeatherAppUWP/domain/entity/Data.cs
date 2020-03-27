@@ -17,9 +17,9 @@ namespace WeatherAppUWP
         [JsonProperty("city_name")]
         public string CityName { get; set; }
         [JsonProperty("wind_spd")]
-        public int WindSpd { get; set; }
+        public double WindSpd { get; set; }
         [JsonProperty("temp")]
-        public int Temp { get; set; } 
+        public double Temp { get; set; } 
     }
 
     public class Root

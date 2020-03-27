@@ -119,6 +119,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="command\AsyncCommandBase.cs" />
+    <Compile Include="command\IAsyncCommand.cs" />
+    <Compile Include="command\WaetherCommandAsync.cs" />
     <Compile Include="domain\entity\Data.cs" />
     <Compile Include="domain\entity\DataResponse.cs" />
     <Compile Include="data\IWeatherDataSource.cs" />
@@ -128,7 +131,7 @@
     <Compile Include="domain\IWeatherRepository.cs" />
     <Compile Include="data\remote\HttpClientDiagnosticsHandler.cs" />
     <Compile Include="data\remote\IWeatherApi.cs" />
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="presentation\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="presentation\BindableBase.cs" />
@@ -156,7 +159,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
+    <Page Include="presentation\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

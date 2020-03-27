@@ -10,12 +10,19 @@ using System.Diagnostics;
 using WeatherAppUWP.domain;
 using Newtonsoft.Json;
 using Windows.UI.Core;
+using WeatherAppUWP.command;
 
 namespace WeatherAppUWP
 {
+
     public class WeatherViewModel : BindableBase
     {
-        private CoreDispatcher dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
+        private List<Data> data;
+        private string defaultCity = "Novosibirsk";
+        private GetCurrentWeatherUseCase getCurrentWeatherUseCase;
+
+        private IAsyncCommand fetchCurrentWeather;
+        public IAsyncCommand FetchCurrentWeather { get; set; }
 
         private Data currentTemperature;
         public Data CurrentTemperature
@@ -30,49 +37,55 @@ namespace WeatherAppUWP
             }
         }
 
-        private List<Data> data;
-
-        private string defaultCity = "Novosibirsk";
-
-        private GetCurrentWeatherUseCase getCurrentWeatherUseCase;
-
         private bool isLoading = true;
         public bool IsLoading
         {
-            get =>  isLoading; 
-            set =>  Set(ref isLoading, value, "IsLoading");
+            get => isLoading;
+            set => Set(ref isLoading, value, "IsLoading");
         }
 
-        public string City { get; set; }
+
+        private string city = "Novosibirsk";
+        public string City 
+        {
+            get => city;
+            set => Set(ref city, value, "City");
+        }
 
         public WeatherViewModel(GetCurrentWeatherUseCase getCurrentWeatherUseCase)
         {
             this.getCurrentWeatherUseCase = getCurrentWeatherUseCase;
-            Task.Run(() => FetchDataWeatherAsync(defaultCity));
+
+            FetchCurrentWeather = new WaetherCommandAsync(async () =>
+            {
+                await FetchDataWeatherAsync(City);
+            });
+            
+            Task.Run(() => FetchDataWeatherAsync(City));
         }
 
-        async Task FetchDataWeatherAsync(string city)
+        private async Task FetchDataWeatherAsync(string city)
         {
-                try
+            try
+            {
+                data = await getCurrentWeatherUseCase.Get(city);
+                if (data.Count == 1)
                 {
-                    data = await getCurrentWeatherUseCase.Get(city);
-                    if (data.Count == 1)
+                    await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
-                        await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                        {
-                            CurrentTemperature = data[0];
-                            IsLoading = false;
-                        });
-                    }
-                    else
-                    {
-                        // TODO
-                    }
+                        CurrentTemperature = data[0];
+                        IsLoading = false;
+                    });
                 }
-                catch (Exception ex)
+                else
                 {
-                    Debug.WriteLine(ex.Message);
-                }         
+                    // TODO
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
     }
 }
