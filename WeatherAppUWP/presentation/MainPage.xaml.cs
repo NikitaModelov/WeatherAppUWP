@@ -24,12 +24,23 @@ namespace WeatherAppUWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public WeatherViewModel ViewModel { get; set; }
+        public CurrentWeatherViewModel ViewModel { get; set; }
 
         public MainPage()
         {
             InitializeComponent();
-            ViewModel = new WeatherViewModel(new domain.GetCurrentWeatherUseCase());
+            ViewModel = new CurrentWeatherViewModel(new domain.GetCurrentWeatherUseCase());
         }
+
+        //public void ShowDialogWindow(string message)
+        //{
+        //    var showErrorDialog = new ContentDialog()
+        //    {
+        //        Title = "Ошибка",
+        //        Content = $"{message}",
+        //        PrimaryButtonCommand = ViewModel.FetchCurrentWeather,
+        //        SecondaryButtonText = "Отмена"
+        //    };
+        //}
     }
 }

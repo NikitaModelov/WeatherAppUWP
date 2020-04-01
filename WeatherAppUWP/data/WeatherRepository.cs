@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeatherAppUWP.domain;
+using WeatherAppUWP.domain.entity;
+using WeatherAppUWP.utill;
 
 namespace WeatherAppUWP.data
 {
@@ -11,11 +13,11 @@ namespace WeatherAppUWP.data
     {
 
         // TODO: Реализовать безопасный вызов
-        public async Task<List<Data>> GetCurrentWeather(string city)
+        public async Task<CurrentWeather> GetCurrentWeather(Coordinates cityCoord, int limit)
         {
             // TODO: Сделать безопасный вызов
-            var response = await WeatherRemoteDataSource.GetCurrentWeather(city);
-            return response.data;
+            var response = await WeatherRemoteDataSource.GetCurrentWeather(cityCoord, limit);
+            return response.CurrentWeather;
         }
-    }
+    } 
 }

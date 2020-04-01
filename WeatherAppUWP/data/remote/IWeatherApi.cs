@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Refit;
+using WeatherAppUWP.utill;
 
 namespace WeatherAppUWP
 {
+    [Headers("X-Yandex-API-Key: bbdad52d-e9f4-4cb3-bd2d-2a8107525ae6")]
     public interface IWeatherApi
     {
-        [Get("/v2.0/current?city={city}&key=ca59fc1bb5d94217883e9243972acc3d")]
-        Task<DataResponse> GetCurrentWeather([AliasAs("city")] string city);
+        [Get("/v1/forecast?extra=false")]
+        Task<DataResponse> GetCurrentWeather([Query] Coordinates cityCoord, [Query("limit")] int limit);
     }
 }

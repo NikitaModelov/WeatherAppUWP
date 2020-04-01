@@ -12,7 +12,7 @@ namespace WeatherAppUWP
 {
     public class WeatherService
     {
-        private const string BASE_URL = "https://api.weatherbit.io";
+        private const string BASE_URL = "https://api.weather.yandex.ru";
 
         private static readonly Lazy<WeatherService> lazy =
             new Lazy<WeatherService>(() => new WeatherService());

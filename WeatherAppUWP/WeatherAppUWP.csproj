@@ -122,11 +122,13 @@
     <Compile Include="command\AsyncCommandBase.cs" />
     <Compile Include="command\IAsyncCommand.cs" />
     <Compile Include="command\WaetherCommandAsync.cs" />
-    <Compile Include="domain\entity\Data.cs" />
+    <Compile Include="domain\entity\CurrentWeather.cs" />
     <Compile Include="domain\entity\DataResponse.cs" />
     <Compile Include="data\IWeatherDataSource.cs" />
     <Compile Include="data\WeatherRemoteDataSource.cs" />
     <Compile Include="data\WeatherRepository.cs" />
+    <Compile Include="domain\entity\Forecast.cs" />
+    <Compile Include="domain\entity\HourWeather.cs" />
     <Compile Include="domain\GetCurrentWeatherUseCase.cs" />
     <Compile Include="domain\IWeatherRepository.cs" />
     <Compile Include="data\remote\HttpClientDiagnosticsHandler.cs" />
@@ -137,7 +139,8 @@
     <Compile Include="presentation\BindableBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="data\remote\WeatherService.cs" />
-    <Compile Include="presentation\WeatherViewModel.cs" />
+    <Compile Include="presentation\CurrentWeatherViewModel.cs" />
+    <Compile Include="utill\CoordCity.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

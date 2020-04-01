@@ -5,29 +5,33 @@
     xmlns:local="using:WeatherAppUWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+        <NavigationView Windows10version1809:PaneDisplayMode="Top">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="A" x:Name="A" />
+                <NavigationViewItem Content="B" x:Name="B" />
+                <NavigationViewItem Content="C" x:Name="C" />
+            </NavigationView.MenuItems>
+        </NavigationView>
 
-        <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+        </Grid>
 
-            <TextBox Text="{x:Bind ViewModel.City, Mode=TwoWay}"/>
+        <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Height="64" Width="64"/>
+        
+        <TextBlock Text="{x:Bind ViewModel.CurrentWeather.Temperature, Mode=OneWay}"
+                   Width="120" Height="75"/>
 
-            <ProgressRing x:Name="progressRing" IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Width="60" Height="60" />
+        <Button Command="{x:Bind ViewModel.FetchCurrentWeather, Mode=OneWay}"
+                Height="35" Width="100" Content="Перегрузить"/>
 
-            <TextBlock Foreground="White" 
-                   x:Name="textBlock1"
-                Height="75" Width="125"
-                HorizontalAlignment="Center"
-                Text="{x:Bind ViewModel.CurrentTemperature.Temp.ToString(), Mode=OneWay}"/>
-
-            <Button Content="Обновить" Command="{x:Bind ViewModel.FetchCurrentWeather, Mode=OneWay}"/>
-
-        </StackPanel>
     </Grid>
 </Page>

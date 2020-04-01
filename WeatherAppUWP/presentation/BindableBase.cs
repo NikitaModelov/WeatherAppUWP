@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Windows.UI.Core;
 
 namespace WeatherAppUWP.presentation
@@ -9,8 +11,6 @@ namespace WeatherAppUWP.presentation
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public CoreDispatcher dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null) =>
-           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         protected bool Set<T>(ref T storage, T value,
             [CallerMemberName] String propertyName = null)
@@ -21,8 +21,22 @@ namespace WeatherAppUWP.presentation
             }
 
             storage = value;
-            OnPropertyChanged(propertyName);
+            PropertyChangedAsync(propertyName);
             return true;
+        }
+
+        private async Task UIThreadAction(Action act)
+        {
+            await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => act.Invoke());
+        }
+
+        private async void PropertyChangedAsync([CallerMemberName] String propertyName = null)
+        {
+            if (PropertyChanged != null)
+            {
+                Debug.WriteLine("Ссылка -> " + propertyName);
+                await UIThreadAction(() => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)));
+            }
         }
     }
 }

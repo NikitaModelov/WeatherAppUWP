@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeatherAppUWP.data;
+using WeatherAppUWP.domain.entity;
+using WeatherAppUWP.utill;
 
 namespace WeatherAppUWP.domain
 {
@@ -17,9 +19,9 @@ namespace WeatherAppUWP.domain
             this.repository = new WeatherRepository();
         }
 
-        public async Task<List<Data>> Get(string city)
+        public async Task<CurrentWeather> Get(Coordinates cityCoord, int limit)
         {
-            return await repository.GetCurrentWeather(city);
+            return await Task.Run(() => repository.GetCurrentWeather(cityCoord, limit));
         }
     }
 }
