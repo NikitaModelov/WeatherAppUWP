@@ -9,19 +9,18 @@ using WeatherAppUWP.utill;
 
 namespace WeatherAppUWP.domain
 {
-    public class GetCurrentWeatherUseCase
+    public class GetForecastUseCase
     {
+        private IWeatherRepository repository;
 
-        private IWeatherRepository repository; 
-
-        public GetCurrentWeatherUseCase()
+        public GetForecastUseCase()
         {
             repository = new WeatherRepository();
         }
 
-        public async Task<CurrentWeather> Get(Coordinates cityCoord)
+        public async Task<List<Forecast>> Get(Coordinates cityCoord, int limit)
         {
-            return await Task.Run(() => repository.GetCurrentWeather(cityCoord));
+            return await Task.Run(() => repository.GetForecast(cityCoord, limit));
         }
     }
 }

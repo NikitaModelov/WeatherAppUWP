@@ -19,5 +19,10 @@ namespace WeatherAppUWP.domain.entity
         [JsonProperty("prec_type")]
         public string PrecType { get; set; }
 
+        public string GetTemp()
+        {
+            return Temperature.ToString() + "°С";
+        }
+
     }
 }

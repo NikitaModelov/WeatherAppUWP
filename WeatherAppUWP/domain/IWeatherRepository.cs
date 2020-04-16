@@ -10,6 +10,7 @@ namespace WeatherAppUWP.domain
 {
     public interface IWeatherRepository
     {
-        Task<CurrentWeather> GetCurrentWeather(Coordinates cityCoord, int limit);
+        Task<CurrentWeather> GetCurrentWeather(Coordinates cityCoord);
+        Task<List<Forecast>> GetForecast(Coordinates cityCoord, int limit);
     }
 }

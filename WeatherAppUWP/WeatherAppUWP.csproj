@@ -127,9 +127,12 @@
     <Compile Include="data\IWeatherDataSource.cs" />
     <Compile Include="data\WeatherRemoteDataSource.cs" />
     <Compile Include="data\WeatherRepository.cs" />
+    <Compile Include="domain\entity\Day.cs" />
     <Compile Include="domain\entity\Forecast.cs" />
     <Compile Include="domain\entity\HourWeather.cs" />
+    <Compile Include="domain\entity\Part.cs" />
     <Compile Include="domain\GetCurrentWeatherUseCase.cs" />
+    <Compile Include="domain\GetForecastUseCase.cs" />
     <Compile Include="domain\IWeatherRepository.cs" />
     <Compile Include="data\remote\HttpClientDiagnosticsHandler.cs" />
     <Compile Include="data\remote\IWeatherApi.cs" />
@@ -139,7 +142,8 @@
     <Compile Include="presentation\BindableBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="data\remote\WeatherService.cs" />
-    <Compile Include="presentation\CurrentWeatherViewModel.cs" />
+    <Compile Include="presentation\ForecastViewModel.cs" />
+    <Compile Include="utill\BooleanToVisibilityConverter.cs" />
     <Compile Include="utill\CoordCity.cs" />
   </ItemGroup>
   <ItemGroup>

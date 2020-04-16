@@ -13,5 +13,12 @@ namespace WeatherAppUWP.domain.entity
         public string Date { get; set; }
         [JsonProperty("hours")]
         public List<HourWeather> HourWeathers { get; set; }
+        [JsonProperty("parts")]
+        public Part Part { get; set; }
+
+        public string GetTemp()
+        {
+            return Part.Day.TempAvg.ToString() + "°С";
+        }
     }
 }

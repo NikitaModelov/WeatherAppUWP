@@ -7,11 +7,12 @@ using WeatherAppUWP.utill;
 
 namespace WeatherAppUWP.data
 {
-    public static class WeatherRemoteDataSource
+    public class WeatherRemoteDataSource : IWeatherDataSource
     {
-        public static async Task<DataResponse> GetCurrentWeather(Coordinates cityCoord, int limit)
+        public async Task<DataResponse> GetForecastWeather(Coordinates cityCoord, int limit)
         {
-            return await WeatherService.GetInstance().weatherApi.GetCurrentWeather(cityCoord, limit);
+            return await WeatherService.GetInstance().weatherApi.GetForecastWeather(cityCoord, limit);
         }
+
     }
 }

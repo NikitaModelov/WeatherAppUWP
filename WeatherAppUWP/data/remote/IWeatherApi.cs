@@ -12,6 +12,6 @@ namespace WeatherAppUWP
     public interface IWeatherApi
     {
         [Get("/v1/forecast?extra=false")]
-        Task<DataResponse> GetCurrentWeather([Query] Coordinates cityCoord, [Query("limit")] int limit);
+        Task<DataResponse> GetForecastWeather([Query] Coordinates cityCoord, [Query("limit")] int limit);
     }
 }

@@ -11,13 +11,25 @@ namespace WeatherAppUWP.data
 {
     class WeatherRepository : IWeatherRepository
     {
+        // еслли по умолчанию будет 1, то вернет прогноз на 7 дней ¯\_(ツ)_/¯
+        const int limit = 2;
+        IWeatherDataSource remoteDataSource;
 
-        // TODO: Реализовать безопасный вызов
-        public async Task<CurrentWeather> GetCurrentWeather(Coordinates cityCoord, int limit)
+        public WeatherRepository()
         {
-            // TODO: Сделать безопасный вызов
-            var response = await WeatherRemoteDataSource.GetCurrentWeather(cityCoord, limit);
+            remoteDataSource = new WeatherRemoteDataSource();
+        }
+
+        public async Task<CurrentWeather> GetCurrentWeather(Coordinates cityCoord)
+        {
+            var response = await remoteDataSource.GetForecastWeather(cityCoord, limit);
             return response.CurrentWeather;
+        }
+
+        public async Task<List<Forecast>> GetForecast(Coordinates cityCoord, int limit)
+        {
+            var response = await remoteDataSource.GetForecastWeather(cityCoord, limit);
+            return response.Forecasts;
         }
     } 
 }

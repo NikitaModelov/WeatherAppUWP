@@ -6,32 +6,76 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
+    xmlns:entity="using:WeatherAppUWP.domain.entity"
+    xmlns:utill="using:WeatherAppUWP.utill"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Page.Resources>
+        <utill:BooleanToVisibilityConverter x:Name="BooleanToVisibilityConverter"/>
+    </Page.Resources>
     <Grid>
-        <NavigationView Windows10version1809:PaneDisplayMode="Top">
-            <NavigationView.MenuItems>
-                <NavigationViewItem Content="A" x:Name="A" />
-                <NavigationViewItem Content="B" x:Name="B" />
-                <NavigationViewItem Content="C" x:Name="C" />
-            </NavigationView.MenuItems>
-        </NavigationView>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="0.3*"/>
-            </Grid.RowDefinitions>
-        </Grid>
+        <StackPanel  Grid.Row="0" Margin="20" Padding="16,24" Orientation="Vertical">
+            <TextBox x:Name="inputCity" Header="Город" Text="{x:Bind ViewModel.City, Mode=TwoWay}"/>
 
-        <ProgressRing IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" Height="64" Width="64"/>
-        
-        <TextBlock Text="{x:Bind ViewModel.CurrentWeather.Temperature, Mode=OneWay}"
-                   Width="120" Height="75"/>
+            <TextBox x:Name="cout" IsReadOnly="True" Header="Количество дней" Margin="0,16,0,0" Text="{x:Bind ViewModel.CountDay, Mode=TwoWay}"/>
 
-        <Button Command="{x:Bind ViewModel.FetchCurrentWeather, Mode=OneWay}"
-                Height="35" Width="100" Content="Перегрузить"/>
+            <Slider x:Name="slider" Minimum="2" Maximum="7" Value="{x:Bind ViewModel.CountDay, Mode=TwoWay}" Orientation="Horizontal"/>
+
+            <Button Content="Перезагрузить" Command="{x:Bind ViewModel.FetchCurrentWeather, Mode=OneWay}"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"  Margin="20" 
+                        Visibility="{x:Bind ViewModel.ShowWeatherLayout, Mode=OneWay, Converter={StaticResource ResourceKey=BooleanToVisibilityConverter}}"
+                        Padding="16,24" Orientation="Vertical">
+            <TextBlock Text="{x:Bind ViewModel.City, Mode=OneWay}" FontSize="64" Margin="0,0,0,20"/>
+
+            <TextBlock FontSize="32" Margin="0,0,0,20">
+                    <Run Text="Сейчас "/>
+                    <Run Text="{x:Bind ViewModel.CurrentWeather.GetTemp(), Mode=OneWay}"/>
+            </TextBlock>
+
+            <ListView x:Name="ForecastLV" ItemsSource="{x:Bind ViewModel.Forecasts, Mode=OneWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="entity:Forecast">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Foreground="Red" Text="{x:Bind Date, Mode=OneWay}" Grid.Row="0"/>
+                            <TextBlock Text="{x:Bind GetTemp(), Mode=OneWay}" 
+                                           FontSize="24"
+                                           Margin="16,0,0,0" Grid.Row="1"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="20" 
+                    Visibility="{x:Bind ViewModel.ShowErrorLayout, 
+                                 Mode=OneWay, Converter={StaticResource ResourceKey=BooleanToVisibilityConverter}}"
+                    Padding="16,24" Orientation="Vertical"
+                    VerticalAlignment="Center" HorizontalAlignment="Center">
+            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                      FontSize="72" Glyph="&#xE783;"/>
+            <TextBlock Text="Произошла ошибка загрузки данных" FontSize="32"/>
+
+        </StackPanel>
+
+        <ProgressRing Grid.Row="1" 
+                          IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" 
+                          Height="64" Width="64"/>
+
+        <ToggleSwitch Grid.Row="2" Header="Автоматическое обновление данных" Margin="20"
+                      IsOn="{x:Bind ViewModel.ToggleValue, Mode=TwoWay}"/>
 
     </Grid>
+
 </Page>
