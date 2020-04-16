@@ -1,32 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.ObjectModel;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Windows.Input;
-using WeatherAppUWP.presentation;
-using System.Diagnostics;
-using WeatherAppUWP.domain;
-using Newtonsoft.Json;
-using Windows.UI.Core;
 using WeatherAppUWP.command;
+using WeatherAppUWP.domain;
 using WeatherAppUWP.domain.entity;
 using WeatherAppUWP.utill;
-using System.Net.Http;
-using System.Collections.ObjectModel;
-using System.Threading;
 
-namespace WeatherAppUWP
+namespace WeatherAppUWP.presentation
 {
-
     public class ForecastViewModel : BindableBase
     {
-        private GetCurrentWeatherUseCase getCurrentWeatherUseCase;
-        private GetForecastUseCase getForecastUseCase;
+        private readonly GetCurrentWeatherUseCase getCurrentWeatherUseCase;
+        private readonly GetForecastUseCase getForecastUseCase;
 
-        CancellationTokenSource cancellationTokenSource;
-        CancellationToken token;
+        private CancellationTokenSource cancellationTokenSource;
+        private CancellationToken token;
 
         private IAsyncCommand fetchCurrentWeather;
         public IAsyncCommand FetchCurrentWeather
@@ -44,7 +33,7 @@ namespace WeatherAppUWP
         private CurrentWeather currentWeather;
         public CurrentWeather CurrentWeather
         {
-            get { return currentWeather; }
+            get => currentWeather;
             set
             {
                 if (value != null)
@@ -57,7 +46,7 @@ namespace WeatherAppUWP
         private ObservableCollection<Forecast> forecasts;
         public ObservableCollection<Forecast> Forecasts
         {
-            get { return forecasts; }
+            get => forecasts;
             set
             {
                 if (value != null)
@@ -167,7 +156,6 @@ namespace WeatherAppUWP
                 FetchDataWeatherAsync(CoordCity.Cities[City]);
                 await Task.Delay(time);
             }
-            return;
         }
     }
 }

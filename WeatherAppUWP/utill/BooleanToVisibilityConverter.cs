@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
@@ -20,7 +15,7 @@ namespace WeatherAppUWP.utill
             }
             else if (value is bool?)
             {
-                bool? tmp = (bool?)value;
+                var tmp = (bool?)value;
                 bValue = tmp.HasValue ? tmp.Value : false;
             }
             return (bValue) ? Visibility.Visible : Visibility.Collapsed;
@@ -28,9 +23,9 @@ namespace WeatherAppUWP.utill
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            if (value is Visibility)
+            if (value is Visibility visibility)
             {
-                return (Visibility)value == Visibility.Visible;
+                return visibility == Visibility.Visible;
             }
             else
             {

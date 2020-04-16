@@ -21,7 +21,7 @@ namespace WeatherAppUWP.domain.entity
 
         public string GetTemp()
         {
-            return Temperature.ToString() + "°С";
+            return Temperature + "°С";
         }
 
     }

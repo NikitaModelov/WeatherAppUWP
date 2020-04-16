@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using WeatherAppUWP.domain.entity;
 using WeatherAppUWP.utill;
 
 namespace WeatherAppUWP.data
@@ -11,8 +8,7 @@ namespace WeatherAppUWP.data
     {
         public async Task<DataResponse> GetForecastWeather(Coordinates cityCoord, int limit)
         {
-            return await WeatherService.GetInstance().weatherApi.GetForecastWeather(cityCoord, limit);
+            return await WeatherService.GetInstance().WeatherApi.GetForecastWeather(cityCoord, limit);
         }
-
     }
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net.Http;
 using Refit;
 using Newtonsoft.Json.Serialization;
@@ -12,18 +8,17 @@ namespace WeatherAppUWP
 {
     public class WeatherService
     {
-        private const string BASE_URL = "https://api.weather.yandex.ru";
+        private const string BaseUrl = "https://api.weather.yandex.ru";
 
         private static readonly Lazy<WeatherService> lazy =
             new Lazy<WeatherService>(() => new WeatherService());
 
-        private readonly HttpClient httpClient;
-        public IWeatherApi weatherApi { get; private set; }
+        public IWeatherApi WeatherApi { get; }
 
         [Obsolete]
         protected WeatherService()
         {
-            httpClient = new HttpClient(new HttpClientDiagnosticsHandler(new HttpClientHandler())) { BaseAddress = new Uri(BASE_URL) };
+            var httpClient = new HttpClient(new HttpClientDiagnosticsHandler(new HttpClientHandler())) { BaseAddress = new Uri(BaseUrl) };
             var refitSettings = new RefitSettings
             {
                 JsonSerializerSettings = new JsonSerializerSettings
@@ -34,7 +29,7 @@ namespace WeatherAppUWP
                     }
                 }
             };
-            weatherApi = RestService.For<IWeatherApi>(httpClient, refitSettings);
+            WeatherApi = RestService.For<IWeatherApi>(httpClient, refitSettings);
         }
 
         public static WeatherService GetInstance()

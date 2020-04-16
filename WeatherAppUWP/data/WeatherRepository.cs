@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WeatherAppUWP.domain;
 using WeatherAppUWP.domain.entity;
@@ -13,7 +10,7 @@ namespace WeatherAppUWP.data
     {
         // еслли по умолчанию будет 1, то вернет прогноз на 7 дней ¯\_(ツ)_/¯
         const int limit = 2;
-        IWeatherDataSource remoteDataSource;
+        private IWeatherDataSource remoteDataSource;
 
         public WeatherRepository()
         {

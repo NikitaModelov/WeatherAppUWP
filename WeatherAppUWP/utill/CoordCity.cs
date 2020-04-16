@@ -22,7 +22,7 @@ namespace WeatherAppUWP.utill
     }
     public static class CoordCity
     {
-        public static Dictionary<String, Coordinates> Cities =
+        public static Dictionary<string, Coordinates> Cities =
             new Dictionary<string, Coordinates>
             {
                 { "Новосибирск", new Coordinates(55.0415, 82.9346)},

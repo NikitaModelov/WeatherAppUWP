@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WeatherAppUWP.data;
 using WeatherAppUWP.domain.entity;
@@ -11,7 +8,7 @@ namespace WeatherAppUWP.domain
 {
     public class GetForecastUseCase
     {
-        private IWeatherRepository repository;
+        private readonly IWeatherRepository repository;
 
         public GetForecastUseCase()
         {
