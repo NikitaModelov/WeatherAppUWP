@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Refit;
-using WeatherAppUWP.domain.entity;
-using WeatherAppUWP.utill;
+using WeatherAppUWP.Domain.Entity;
+using WeatherAppUWP.Utill;
 
 namespace WeatherAppUWP
 {

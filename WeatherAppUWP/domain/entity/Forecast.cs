@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace WeatherAppUWP.domain.entity
+namespace WeatherAppUWP.Domain.Entity
 {
     public class Forecast
     {
@@ -12,9 +12,6 @@ namespace WeatherAppUWP.domain.entity
         [JsonProperty("parts")]
         public Part Part { get; set; }
 
-        public string GetTemp()
-        {
-            return Part.Day.TempAvg + "°С";
-        }
+        public string GetTemp => Part.Day.TempAvg + "°С";
     }
 }

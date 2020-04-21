@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WeatherAppUWP.data;
-using WeatherAppUWP.domain.entity;
-using WeatherAppUWP.utill;
+using WeatherAppUWP.Domain.Entity;
+using WeatherAppUWP.Utill;
 
-namespace WeatherAppUWP.domain
+namespace WeatherAppUWP.Domain
 {
     public class GetForecastUseCase
     {

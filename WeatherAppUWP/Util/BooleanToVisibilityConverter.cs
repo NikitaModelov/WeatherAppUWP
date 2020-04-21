@@ -2,7 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace WeatherAppUWP.utill
+namespace WeatherAppUWP.Util
 {
     public sealed class BooleanToVisibilityConverter : IValueConverter
     {
@@ -12,11 +12,6 @@ namespace WeatherAppUWP.utill
             if (value is bool)
             {
                 bValue = (bool)value;
-            }
-            else if (value is bool?)
-            {
-                var tmp = (bool?)value;
-                bValue = tmp.HasValue ? tmp.Value : false;
             }
             return (bValue) ? Visibility.Visible : Visibility.Collapsed;
         }

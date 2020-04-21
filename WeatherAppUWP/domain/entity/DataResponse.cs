@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace WeatherAppUWP.domain.entity
+namespace WeatherAppUWP.Domain.Entity
 {
     public class DataResponse
     {

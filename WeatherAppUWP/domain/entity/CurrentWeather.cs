@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace WeatherAppUWP.domain.entity
+namespace WeatherAppUWP.Domain.Entity
 {
     public class CurrentWeather
     {
@@ -19,10 +19,6 @@ namespace WeatherAppUWP.domain.entity
         [JsonProperty("prec_type")]
         public string PrecType { get; set; }
 
-        public string GetTemp()
-        {
-            return Temperature + "°С";
-        }
-
+        public string GetTemp => Temperature + "°С";
     }
 }

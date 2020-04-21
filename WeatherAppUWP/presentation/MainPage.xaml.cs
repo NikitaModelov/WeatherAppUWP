@@ -1,5 +1,5 @@
 ﻿using Windows.UI.Xaml.Controls;
-using WeatherAppUWP.presentation;
+using WeatherAppUWP.Presentation;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x419
 
@@ -15,8 +15,8 @@ namespace WeatherAppUWP
         public MainPage()
         {
             InitializeComponent();
-            ViewModel = new ForecastViewModel(new domain.GetCurrentWeatherUseCase(),
-                                              new domain.GetForecastUseCase());
+            ViewModel = new ForecastViewModel(new Domain.GetCurrentWeatherUseCase(),
+                                              new Domain.GetForecastUseCase());
         }
     }
 }

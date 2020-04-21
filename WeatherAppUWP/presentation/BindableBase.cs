@@ -5,15 +5,14 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.UI.Core;
 
-namespace WeatherAppUWP.presentation
+namespace WeatherAppUWP.Presentation
 {
     public abstract class BindableBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private CoreDispatcher dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
-
+        
         protected bool Set<T>(ref T storage, T value,
-            [CallerMemberName] String propertyName = null)
+            [CallerMemberName] string propertyName = null)
         {
             if (Equals(storage, value))
             {
@@ -21,22 +20,12 @@ namespace WeatherAppUWP.presentation
             }
 
             storage = value;
-            PropertyChangedAsync(propertyName);
+            OnPropertyChanged(propertyName);
             return true;
         }
-
-        private async Task UiThreadAction(Action act)
+        private void OnPropertyChanged([CallerMemberName] String propertyName = null)
         {
-            await dispatcher.RunAsync(CoreDispatcherPriority.Normal, act.Invoke);
-        }
-
-        private async void PropertyChangedAsync([CallerMemberName] String propertyName = null)
-        {
-            if (PropertyChanged != null)
-            {
-                Debug.WriteLine("Ссылка -> " + propertyName);
-                await UiThreadAction(() => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace WeatherAppUWP.command
+namespace WeatherAppUWP.Command
 {
     public abstract class AsyncCommandBase : IAsyncCommand
     {

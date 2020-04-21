@@ -2,16 +2,14 @@
     x:Class="WeatherAppUWP.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WeatherAppUWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
-    xmlns:entity="using:WeatherAppUWP.domain.entity"
-    xmlns:utill="using:WeatherAppUWP.utill"
+    xmlns:entity="using:WeatherAppUWP.Domain.Entity"
+    xmlns:util="using:WeatherAppUWP.Util"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
-        <utill:BooleanToVisibilityConverter x:Name="BooleanToVisibilityConverter"/>
+        <util:BooleanToVisibilityConverter x:Name="BooleanToVisibilityConverter"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -21,11 +19,11 @@
         </Grid.RowDefinitions>
 
         <StackPanel  Grid.Row="0" Margin="20" Padding="16,24" Orientation="Vertical">
-            <TextBox x:Name="inputCity" Header="Город" Text="{x:Bind ViewModel.City, Mode=TwoWay}"/>
+            <TextBox x:Name="InputCity" Header="Город" Text="{x:Bind ViewModel.City, Mode=TwoWay}"/>
 
-            <TextBox x:Name="cout" IsReadOnly="True" Header="Количество дней" Margin="0,16,0,0" Text="{x:Bind ViewModel.CountDay, Mode=TwoWay}"/>
+            <TextBox IsReadOnly="True" Header="Количество дней" Margin="0,16,0,0" Text="{x:Bind ViewModel.CountDay, Mode=TwoWay}"/>
 
-            <Slider x:Name="slider" Minimum="2" Maximum="7" Value="{x:Bind ViewModel.CountDay, Mode=TwoWay}" Orientation="Horizontal"/>
+            <Slider x:Name="Slider" Minimum="2" Maximum="7" Value="{x:Bind ViewModel.CountDay, Mode=TwoWay}" Orientation="Horizontal"/>
 
             <Button Content="Перезагрузить" Command="{x:Bind ViewModel.FetchCurrentWeather, Mode=OneWay}"/>
         </StackPanel>
@@ -37,10 +35,10 @@
 
             <TextBlock FontSize="32" Margin="0,0,0,20">
                     <Run Text="Сейчас "/>
-                    <Run Text="{x:Bind ViewModel.CurrentWeather.GetTemp(), Mode=OneWay}"/>
+                    <Run Text="{x:Bind ViewModel.CurrentWeather.GetTemp, Mode=OneWay}"/>
             </TextBlock>
 
-            <ListView x:Name="ForecastLV" ItemsSource="{x:Bind ViewModel.Forecasts, Mode=OneWay}">
+            <ListView x:Name="ForecastLv" ItemsSource="{x:Bind ViewModel.Forecasts, Mode=OneWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="entity:Forecast">
                         <Grid>
@@ -49,7 +47,7 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <TextBlock Foreground="Red" Text="{x:Bind Date, Mode=OneWay}" Grid.Row="0"/>
-                            <TextBlock Text="{x:Bind GetTemp(), Mode=OneWay}" 
+                            <TextBlock Text="{x:Bind GetTemp, Mode=OneWay}" 
                                            FontSize="24"
                                            Margin="16,0,0,0" Grid.Row="1"/>
                         </Grid>

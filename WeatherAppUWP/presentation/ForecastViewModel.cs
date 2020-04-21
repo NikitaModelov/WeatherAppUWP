@@ -1,13 +1,14 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using WeatherAppUWP.command;
-using WeatherAppUWP.domain;
-using WeatherAppUWP.domain.entity;
-using WeatherAppUWP.utill;
+using WeatherAppUWP.Command;
+using WeatherAppUWP.Domain;
+using WeatherAppUWP.Domain.Entity;
+using WeatherAppUWP.Utill;
 
-namespace WeatherAppUWP.presentation
+namespace WeatherAppUWP.Presentation
 {
     public class ForecastViewModel : BindableBase
     {
@@ -23,13 +24,10 @@ namespace WeatherAppUWP.presentation
             get
             {
                 return fetchCurrentWeather ??
-                    (fetchCurrentWeather = new WaetherCommandAsync(async () =>
-                    {
-                        FetchDataWeatherAsync(CoordCity.Cities[City]);
-                    }));
+                    (fetchCurrentWeather = new WaetherCommandAsync(() => FetchDataWeatherAsync(CoordCity.Cities[City])));
             }
         }
-
+        
         private CurrentWeather currentWeather;
         public CurrentWeather CurrentWeather
         {
@@ -119,7 +117,7 @@ namespace WeatherAppUWP.presentation
             FetchDataWeatherAsync(CoordCity.Cities[City]);
         }
 
-        private async void FetchDataWeatherAsync(Coordinates cityCoord)
+        private async Task FetchDataWeatherAsync(Coordinates cityCoord)
         {
             IsLoading = true;
             ShowWeatherLayout = false;
@@ -138,6 +136,7 @@ namespace WeatherAppUWP.presentation
             }
             catch (HttpRequestException ex)
             {
+                Debug.WriteLine(ex.Message);
                 ShowErrorLayout = true;
             }
         }
